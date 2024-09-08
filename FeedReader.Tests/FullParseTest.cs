@@ -1,8 +1,4 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Linq;
-using System.Threading.Tasks;
-using CodeHollow.FeedReader.Feeds;
+﻿using CodeHollow.FeedReader.Feeds;
 using CodeHollow.FeedReader.Feeds.Itunes;
 
 namespace CodeHollow.FeedReader.Tests
