@@ -1,6 +1,5 @@
 ﻿namespace CodeHollow.FeedReader.Feeds
 {
-    using System;
     using System.Xml.Linq;
 
     /// <summary>
@@ -12,6 +11,8 @@
         /// The "about" attribute of the element
         /// </summary>
         public string About { get; set; }
+
+        public string Content { get; set; }
 
         /// <summary>
         /// The "description" field
@@ -50,6 +51,7 @@
 
             this.About = item.GetAttribute("rdf:about").GetValue();
             this.Description = item.GetValue("description");
+            this.Content = item.GetValue("content:encoded")?.HtmlDecode();
         }
 
         /// <inheritdoc/>
@@ -66,6 +68,7 @@
             }
 
             f.Description = this.Description;
+            f.Content = this.Content;
             if (string.IsNullOrEmpty(f.Content))
                 f.Content = this.Description;
             f.Id = this.Link;

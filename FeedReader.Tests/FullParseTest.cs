@@ -240,7 +240,20 @@ namespace CodeHollow.FeedReader.Tests
             Eq("Feldsperling erstmals häufigster Vogel", item.Title);
             Eq("http://orf.at/stories/2376365/", item.Link);
             Eq("Chronik", item.DC.Subject);
+            Eq(null, item.Content);
             Eq("2017-01-23T20:51:06+01:00", item.DC.DateString);
+        }
+
+        [TestMethod]
+        public void TestRss10ParseNature()
+        {
+            var feed = (Rss10Feed)FeedReader.ReadFromFile("Feeds/Rss10Nature.xml").SpecificFeed;
+            Eq("Nature", feed.Title);
+ 
+            var item = (Rss10FeedItem)feed.Items.ElementAt(4);
+
+            Eq("Iran’s election is an opportunity for Western nations to revive science diplomacy", item.Title);
+            Eq("""<p>Nature, Published online: 20 August 2024; <a href="https://www.nature.com/articles/d41586-024-02709-7">doi:10.1038/d41586-024-02709-7</a></p>Iran’s election is an opportunity for Western nations to revive science diplomacy""", item.Content);
         }
 
         [TestMethod]
