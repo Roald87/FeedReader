@@ -3,6 +3,8 @@ FeedReader is a .NET library used for reading and parsing RSS and ATOM feeds. Su
 Developed because tested existing libraries do not work with different languages, encodings or have other issues. 
 Library tested with multiple languages, encodings and feeds.
 
+Install via nuget https://www.nuget.org/packages/Roald87.FeedReader/
+
 This is a fork of https://github.com/arminreiter/FeedReader. In this fork I:
 1. Ported to .NET 8.0.
 2. Removed the `HttpClient` [because it caused issues](https://github.com/arminreiter/FeedReader/issues/58). And I couldn't get the client tests to pass.
