@@ -11,7 +11,7 @@
     <PackageLicenseUrl></PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/Roald87/FeedReader</PackageProjectUrl>
     <RepositoryUrl>https://github.com/Roald87/FeedReader</RepositoryUrl>
-    <Version>2.0.0</Version>
+    <Version>2.0.0-beta</Version>
     <PackageReleaseNotes>port to .net 8, remove http client, parse content rss 1.0</PackageReleaseNotes>
     <PackageTags>feed rss atom</PackageTags>
     <AssemblyName>Roald87.FeedReader</AssemblyName>
