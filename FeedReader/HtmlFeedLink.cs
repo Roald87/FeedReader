@@ -1,4 +1,4 @@
-﻿namespace CodeHollow.FeedReader;
+﻿namespace Roald87.FeedReader;
 
 /// <summary>
 /// An html feed link, containing the title, the url and the type of the feed

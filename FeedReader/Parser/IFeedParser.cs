@@ -1,6 +1,6 @@
-﻿using CodeHollow.FeedReader.Feeds;
+﻿using Roald87.FeedReader.Feeds;
 
-namespace CodeHollow.FeedReader.Parser
+namespace Roald87.FeedReader.Parser
 {
     internal interface IFeedParser
     {

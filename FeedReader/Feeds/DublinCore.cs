@@ -1,4 +1,4 @@
-﻿namespace CodeHollow.FeedReader.Feeds
+﻿namespace Roald87.FeedReader.Feeds
 {
     using System;
 

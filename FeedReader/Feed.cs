@@ -1,6 +1,6 @@
-﻿using CodeHollow.FeedReader.Feeds;
+﻿using Roald87.FeedReader.Feeds;
 
-namespace CodeHollow.FeedReader;
+namespace Roald87.FeedReader;
 
 /// <summary>
 /// Generic Feed object that contains some basic properties. If a property is not available

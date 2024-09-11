@@ -1,4 +1,4 @@
-﻿namespace CodeHollow.FeedReader.Feeds.Itunes
+﻿namespace Roald87.FeedReader.Feeds.Itunes
 {
     using System.Xml.Linq;
 

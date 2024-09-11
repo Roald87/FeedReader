@@ -1,7 +1,7 @@
-﻿using CodeHollow.FeedReader.Feeds;
-using CodeHollow.FeedReader.Feeds.Itunes;
+﻿using Roald87.FeedReader.Feeds;
+using Roald87.FeedReader.Feeds.Itunes;
 
-namespace CodeHollow.FeedReader.Tests
+namespace Roald87.FeedReader.Tests
 {
     [TestClass]
     public class FullParseTest

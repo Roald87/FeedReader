@@ -1,4 +1,4 @@
-﻿namespace CodeHollow.FeedReader.Parser
+﻿namespace Roald87.FeedReader.Parser
 {
     using System;
     using System.Collections.Generic;

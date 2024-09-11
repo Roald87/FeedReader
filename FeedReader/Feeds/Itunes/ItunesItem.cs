@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Xml.Linq;
 
-namespace CodeHollow.FeedReader.Feeds.Itunes
+namespace Roald87.FeedReader.Feeds.Itunes
 {
     /// <summary>
     /// The itunes:... elements of an rss 2.0 item

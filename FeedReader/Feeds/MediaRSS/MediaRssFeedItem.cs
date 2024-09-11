@@ -1,6 +1,6 @@
-﻿namespace CodeHollow.FeedReader.Feeds
+﻿namespace Roald87.FeedReader.Feeds
 {
-    using CodeHollow.FeedReader.Feeds.MediaRSS;
+    using Roald87.FeedReader.Feeds.MediaRSS;
     using System;
     using System.Collections.Generic;
     using System.Linq;

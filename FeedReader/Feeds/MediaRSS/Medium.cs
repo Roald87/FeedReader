@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace CodeHollow.FeedReader.Feeds.MediaRSS
+namespace Roald87.FeedReader.Feeds.MediaRSS
 {
     /// <summary>
     /// Specifies the type of an object

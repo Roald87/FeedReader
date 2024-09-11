@@ -1,6 +1,6 @@
-﻿using CodeHollow.FeedReader.Parser;
+﻿using Roald87.FeedReader.Parser;
 
-namespace CodeHollow.FeedReader;
+namespace Roald87.FeedReader;
 
 /// <summary>
 /// The static FeedReader class which allows to read feeds from a given url. Use it to

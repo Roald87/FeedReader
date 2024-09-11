@@ -1,4 +1,4 @@
-﻿namespace CodeHollow.FeedReader.Tests
+﻿namespace Roald87.FeedReader.Tests
 {
     [TestClass]
     public class HelpersTest

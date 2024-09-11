@@ -1,8 +1,8 @@
-﻿using CodeHollow.FeedReader.Feeds.MediaRSS;
+﻿using Roald87.FeedReader.Feeds.MediaRSS;
 using System.Globalization;
 using System.Text.RegularExpressions;
 
-namespace CodeHollow.FeedReader;
+namespace Roald87.FeedReader;
 
 /// <summary>
 /// static class with helper functions

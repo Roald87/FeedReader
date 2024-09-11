@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Xml.Linq;
 
-namespace CodeHollow.FeedReader.Feeds.MediaRSS
+namespace Roald87.FeedReader.Feeds.MediaRSS
 {
 
     /// <summary>

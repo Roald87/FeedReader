@@ -1,7 +1,7 @@
 ﻿using System.Text;
 using System.Xml.Linq;
 
-namespace CodeHollow.FeedReader;
+namespace Roald87.FeedReader;
 
 /// <summary>
 /// Extension methods

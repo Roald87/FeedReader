@@ -1,4 +1,4 @@
-﻿namespace CodeHollow.FeedReader;
+﻿namespace Roald87.FeedReader;
 
 /// <summary>
 /// The type of the feed (Rss 0.91, Rss 2.0, Atom, ...)
