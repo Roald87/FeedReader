@@ -76,7 +76,7 @@ namespace Roald87.FeedReader.Feeds
                 Language = null,
                 LastUpdatedDate = this.Modified,
                 LastUpdatedDateString = this.ModifiedString,
-                Type = FeedType.Atom03
+                Type = FeedType.Atom_0_3
             };
             return f;
         }

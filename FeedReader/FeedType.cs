@@ -11,9 +11,9 @@ public enum FeedType
     Atom,
 
     /// <summary>
-     /// Atom 0.3 feed
+    /// Atom 0.3 feed
     /// </summary>
-    Atom03,
+    Atom_0_3,
 
     /// <summary>
     /// Rss 0.91 feed
