@@ -25,13 +25,6 @@ jobs:
         run: |
           PACKAGE_FILE=$(ls FeedReader/${{ env.OUTPUT_DIR }}/*.nupkg)
           echo "PACKAGE_FILE=$PACKAGE_FILE" >> $GITHUB_ENV
-
-      - name: Setup NuGet.exe
-        uses: nuget/setup-nuget@v2
-        with:
-          nuget-api-key: ${{ secrets.NUGET_API_KEY }}
-          nuget-version: latest
         
       - name: Push generated package to Nuget
-        run: nuget push ${{ env.PACKAGE_FILE }} -Source https://api.nuget.org/v3/index.json
-        
+        run: dotnet nuget push ${{ env.PACKAGE_FILE }} --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_API_KEY }}
