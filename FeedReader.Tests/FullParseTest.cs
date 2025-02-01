@@ -13,7 +13,30 @@ namespace Roald87.FeedReader.Tests
 
         #region Synchronous 
 
-                [TestMethod]
+        [TestMethod]
+        public void TestAtom03ParseWikenigma()
+        {
+            var feed = (Atom03Feed)FeedReader.ReadFromFile("Feeds/Atom03Wikenigma.xml").SpecificFeed;
+
+            Eq("", feed.Title);
+            Eq("", feed.Tagline);
+            Eq("https://wikenigma.org.uk/", feed.Link);
+            Eq("2025-01-27T16:58:31+00:00", feed.ModifiedString);
+            Eq("https://wikenigma.org.uk/", feed.Id);
+            Eq(10, feed.Items.Count);
+
+            var item = (Atom03FeedItem)feed.Items.First();
+            Eq("'Penguin' etymology - external edit", item.Title);
+            Eq("https://wikenigma.org.uk/content/language/etymology/penguin_etymology", item.Link);
+            Eq("2024-03-01T13:26:09+00:00", item.CreatedDateString);
+            Eq("2024-03-01T13:26:09+00:00", item.IssuedDateString);
+            Eq("2024-03-01T13:26:09+00:00", item.ModifiedDateString);
+            Eq("https://wikenigma.org.uk/content/language/etymology/penguin_etymology", item.Id);
+            Eq("Anonymous", item.Author.Name);
+            Assert.IsTrue(item.Summary.Contains("The origin of the English word 'Penguin' is obscure."));
+        }
+
+        [TestMethod]
         public void TestAtomParseAdobe()
         {
             var feed = (AtomFeed)FeedReader.ReadFromFile("Feeds/AtomAdobe.xml").SpecificFeed;

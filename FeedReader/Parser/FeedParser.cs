@@ -20,8 +20,14 @@
         {
             string rootElement = doc.Root.Name.LocalName;
             
-            if (rootElement.EqualsIgnoreCase("feed"))
-                return FeedType.Atom;
+            if (rootElement.EqualsIgnoreCase("feed")) {
+                string version = doc.Root.Attribute("version")?.Value;
+                if (version.EqualsIgnoreCase("0.3")) {
+                    return FeedType.Atom_0_3;
+                } else {
+                    return FeedType.Atom;
+                }
+            }
 
             if (rootElement.EqualsIgnoreCase("rdf"))
                 return FeedType.Rss_1_0;
