@@ -23,7 +23,7 @@ jobs:
       - name: Find NuGet package
         id: find-package
         run: |
-          PACKAGE_FILE=$(ls ${{ env.OUTPUT_DIR }}/*.nupkg)
+          PACKAGE_FILE=$(ls FeedReader/${{ env.OUTPUT_DIR }}/*.nupkg)
           echo "PACKAGE_FILE=$PACKAGE_FILE" >> $GITHUB_ENV
 
       - name: Setup NuGet.exe
