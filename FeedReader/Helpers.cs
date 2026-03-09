@@ -34,9 +34,10 @@ public static class Helpers
 
                 parseSuccess = DateTimeOffset.TryParse(newdtstring, dateTimeFormat, DateTimeStyles.None, out dt);
             }
+
             if (!parseSuccess)
             {
-                string newdtstring = datetime.Substring(0, datetime.LastIndexOf(" ")).Trim();
+                string newdtstring = datetime[..datetime.LastIndexOf(' ')].Trim();
 
                 parseSuccess = DateTimeOffset.TryParse(newdtstring, dateTimeFormat, DateTimeStyles.AssumeUniversal,
                     out dt);
@@ -44,7 +45,7 @@ public static class Helpers
             
             if (!parseSuccess)
             {
-                string newdtstring = datetime.Substring(0, datetime.LastIndexOf(" ")).Trim();
+                string newdtstring = datetime[..datetime.LastIndexOf(' ')].Trim();
                 
                 parseSuccess = DateTimeOffset.TryParse(newdtstring, dateTimeFormat, DateTimeStyles.None,
                     out dt);
@@ -157,7 +158,7 @@ public static class Helpers
         // <link rel="alternate" type="application/rss+xml" title="Microsoft Bot Framework Blog" href="http://blog.botframework.com/feed.xml">
         // <link rel="alternate" type="application/atom+xml" title="Aktuelle News von heise online" href="https://www.heise.de/newsticker/heise-atom.xml">
 
-        Regex rex = new Regex("<link[^>]*rel=\"alternate\"[^>]*>", RegexOptions.Singleline);
+        Regex rex = new Regex("<link[^>]*rel=[\"']?alternate[\"']?[^>]*>", RegexOptions.Singleline);
 
         List<HtmlFeedLink> result = new List<HtmlFeedLink>();
 
@@ -179,10 +180,16 @@ public static class Helpers
     /// <returns>the value of the attribute, e.g. my title</returns>
     private static string GetAttributeFromLinkTag(string attribute, string htmlTag)
     {
-        var res = Regex.Match(htmlTag, attribute + "\\s*=\\s*\"(?<val>[^\"]*)\"", RegexOptions.IgnoreCase & RegexOptions.IgnorePatternWhitespace);
+        var res = Regex.Match(htmlTag, attribute + "\\s*=\\s*[\"'](?<val>[^\"']*)[\"']", RegexOptions.IgnoreCase);
 
-        if (res.Groups.Count > 1)
-            return res.Groups[1].Value;
+        if (res.Groups["val"].Success)
+            return res.Groups["val"].Value;
+
+        res = Regex.Match(htmlTag, attribute + "\\s*=\\s*(?<val>[^\\s>\"']+)", RegexOptions.IgnoreCase);
+
+        if (res.Groups["val"].Success)
+            return res.Groups["val"].Value;
+
         return string.Empty;
     }
 }
