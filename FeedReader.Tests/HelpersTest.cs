@@ -57,7 +57,7 @@
         [TestMethod]
         [DataRow("2020-01-01", 2020, 1, 1, 0, 0, 0)]
         [DataRow("2024-03-01T13:26:09+00:00", 2024, 3, 1, 13, 26, 09)]
-        [DataRow("2017-01-07T09:00:01-05:00", 2017, 1, 7, 4, 0, 1)]
+        [DataRow("2017-01-07T09:00:01-05:00", 2017, 1, 7, 14, 0, 1)]
         [DataRow("Sat, 07 Jan 2017 10:19:44 -0500", 2017, 1, 7, 15, 19, 44)]
         [DataRow("2019-04-27T14:25:30Z", 2019, 4, 27, 14, 25, 30)]
         public void TestDateTimeParse(string input, int year, int month, int day, int hour, int minute, int second)
