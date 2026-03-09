@@ -3,8 +3,6 @@
     [TestClass]
     public class HelpersTest
     {
-        #region
-
         [TestMethod]
         public void TestCodeHollowLinkTag01()
         {
@@ -41,6 +39,27 @@
             TestLinkTagParse(input, new HtmlFeedLink("codehollow » Feed", "https://codehollow.com/feed/", FeedType.Rss));
         }
 
+        [TestMethod]
+        public void TestUnquotedAttributes()
+        {
+            string input = "<link href=https://shkspr.mobi/blog/feed rel=alternate title=\"RSS Feed.\" type=application/rss+xml>";
+            TestLinkTagParse(input, new HtmlFeedLink("RSS Feed.", "https://shkspr.mobi/blog/feed", FeedType.Rss));
+        }
+
+        [TestMethod]
+        public void TestSingleQuotedAttributes()
+        {
+            string input = "<link rel='alternate' type='application/rss+xml' title='My Feed' href='https://example.com/feed/' />";
+            TestLinkTagParse(input, new HtmlFeedLink("My Feed", "https://example.com/feed/", FeedType.Rss));
+        }
+
+        [TestMethod]
+        public void TestLinkTagWithLineBreaks()
+        {
+            string input = "<link\n  rel=\"alternate\"\n  type=\"application/rss+xml\"\n  title=\"My Feed\"\n  href=\"https://example.com/feed/\" />";
+            TestLinkTagParse(input, new HtmlFeedLink("My Feed", "https://example.com/feed/", FeedType.Rss));
+        }
+
         private static void TestLinkTagParse(string input, HtmlFeedLink expectedResult)
         {
             var res = Helpers.GetFeedLinkFromLinkTag(input);
@@ -49,8 +68,17 @@
             Assert.AreEqual(expectedResult.FeedType, res.FeedType);
         }
 
-        #endregion
-
+        [TestMethod]
+        [DataRow("2020-01-01", 2020, 1, 1, 0, 0, 0)]
+        [DataRow("2024-03-01T13:26:09+00:00", 2024, 3, 1, 13, 26, 09)]
+        [DataRow("2017-01-07T09:00:01-05:00", 2017, 1, 7, 14, 0, 1)]
+        [DataRow("Sat, 07 Jan 2017 10:19:44 -0500", 2017, 1, 7, 15, 19, 44)]
+        [DataRow("2019-04-27T14:25:30Z", 2019, 4, 27, 14, 25, 30)]
+        public void TestDateTimeParse(string input, int year, int month, int day, int hour, int minute, int second)
+        {
+            var res = Helpers.TryParseDateTime(input);
+            Assert.AreEqual(new DateTime(year, month, day, hour, minute, second), res);
+        }
 
         #region ParseFeedUrlsFromHtml Test -  test full html feed parse
         [TestMethod]
@@ -126,6 +154,35 @@
                 new HtmlFeedLink("Front Page", "https://www.theverge.com/rss/front-page/index.xml", FeedType.Rss)
             });
 
+        }
+
+        [TestMethod]
+        public void ParseFeedsShksprMobi()
+        {
+            TestHtmlLinkParse("Html/shksprmobi.html", new List<HtmlFeedLink>()
+            {
+                new HtmlFeedLink("Atom Feed.", "https://shkspr.mobi/blog/feed/atom", FeedType.Atom),
+                new HtmlFeedLink("RSS Feed.", "https://shkspr.mobi/blog/feed", FeedType.Rss),
+            });
+        }
+
+        [TestMethod]
+        public void ParseFeedUrlsFromHtmlSingleQuotedRel()
+        {
+            string html = "<html><head><link rel='alternate' type='application/rss+xml' title='My Feed' href='https://example.com/feed/'></head></html>";
+            var links = Helpers.ParseFeedUrlsFromHtml(html).ToList();
+            Assert.AreEqual(1, links.Count);
+            Assert.AreEqual("My Feed", links[0].Title);
+            Assert.AreEqual("https://example.com/feed/", links[0].Url);
+            Assert.AreEqual(FeedType.Rss, links[0].FeedType);
+        }
+
+        [TestMethod]
+        public void ParseFeedUrlsFromHtmlRelAlternatePartialWordNotMatched()
+        {
+            string html = "<html><head><link rel=alternate2 type=\"application/rss+xml\" title=\"Feed\" href=\"https://example.com/feed/\"></head></html>";
+            var links = Helpers.ParseFeedUrlsFromHtml(html).ToList();
+            Assert.AreEqual(0, links.Count);
         }
 
         private static void TestHtmlLinkParse(string path, IEnumerable<HtmlFeedLink> expectedLinks)

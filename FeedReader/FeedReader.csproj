@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
 	  <Title>Roald87.FeedReader</Title>
     <Authors>Armin Reiter, Roald Ruiter</Authors>
@@ -11,8 +11,8 @@
     <PackageLicenseUrl></PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/Roald87/FeedReader</PackageProjectUrl>
     <RepositoryUrl>https://github.com/Roald87/FeedReader</RepositoryUrl>
-    <Version>2.1.0</Version>
-    <PackageReleaseNotes>port to .net 8, remove http client, parse content rss 1.0, add atom 0.3</PackageReleaseNotes>
+    <Version>2.2.0</Version>
+    <PackageReleaseNotes>port to .net 10, remove http client, parse content rss 1.0, add atom 0.3</PackageReleaseNotes>
     <PackageTags>feed rss atom</PackageTags>
     <AssemblyName>Roald87.FeedReader</AssemblyName>
     <RootNamespace>Roald87.FeedReader</RootNamespace>
