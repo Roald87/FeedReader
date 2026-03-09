@@ -152,17 +152,22 @@ public static class Helpers
     /// </summary>
     /// <param name="htmlContent">the content of the html page</param>
     /// <returns>all RSS/feed links</returns>
+    // Matches <link> tags where rel is "alternate" (quoted or unquoted), per the HTML Living Standard.
+    // Separate alternatives prevent mismatched quotes (e.g. rel="alternate').
+    // A lookahead on the unquoted case prevents partial matches like rel=alternate2.
+    private static readonly Regex _linkTagRegex = new Regex(
+        @"<link[^>]*\brel\s*=\s*(?:""alternate""|'alternate'|alternate(?=[\s>/]))[^>]*>",
+        RegexOptions.Singleline | RegexOptions.IgnoreCase | RegexOptions.Compiled);
+
     public static IEnumerable<HtmlFeedLink> ParseFeedUrlsFromHtml(string htmlContent)
     {
         // sample link:
         // <link rel="alternate" type="application/rss+xml" title="Microsoft Bot Framework Blog" href="http://blog.botframework.com/feed.xml">
         // <link rel="alternate" type="application/atom+xml" title="Aktuelle News von heise online" href="https://www.heise.de/newsticker/heise-atom.xml">
 
-        Regex rex = new Regex("<link[^>]*rel=[\"']?alternate[\"']?[^>]*>", RegexOptions.Singleline);
-
         List<HtmlFeedLink> result = new List<HtmlFeedLink>();
 
-        foreach (Match m in rex.Matches(htmlContent))
+        foreach (Match m in _linkTagRegex.Matches(htmlContent))
         {
             var hfl = GetFeedLinkFromLinkTag(m.Value);
             if (hfl != null)
@@ -180,16 +185,14 @@ public static class Helpers
     /// <returns>the value of the attribute, e.g. my title</returns>
     private static string GetAttributeFromLinkTag(string attribute, string htmlTag)
     {
-        var res = Regex.Match(htmlTag, attribute + "\\s*=\\s*[\"'](?<val>[^\"']*)[\"']", RegexOptions.IgnoreCase);
+        // Handles double-quoted, single-quoted, and unquoted attribute values.
+        // Unquoted values stop at whitespace or tag-boundary characters per
+        // https://html.spec.whatwg.org/multipage/syntax.html#before-attribute-value-state
+        var res = Regex.Match(
+            htmlTag,
+            attribute + "\\s*=\\s*(?:\"(?<val>[^\"]*)\"|'(?<val>[^']*)'|(?<val>[^\\s>\"'`=<]+))",
+            RegexOptions.IgnoreCase);
 
-        if (res.Groups["val"].Success)
-            return res.Groups["val"].Value;
-
-        res = Regex.Match(htmlTag, attribute + "\\s*=\\s*(?<val>[^\\s>\"']+)", RegexOptions.IgnoreCase);
-
-        if (res.Groups["val"].Success)
-            return res.Groups["val"].Value;
-
-        return string.Empty;
+        return res.Groups["val"].Value;
     }
 }
