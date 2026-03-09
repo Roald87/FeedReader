@@ -172,9 +172,9 @@ public static class Helpers
         {
             foreach (Match m in _linkTagRegex.Matches(htmlContent))
             {
-                var hfl = GetFeedLinkFromLinkTag(m.Value);
-                if (hfl != null)
-                    result.Add(hfl);
+                var feedLink = GetFeedLinkFromLinkTag(m.Value);
+                if (feedLink != null)
+                    result.Add(feedLink);
             }
         }
         catch (RegexMatchTimeoutException) { }

@@ -46,6 +46,20 @@
             TestLinkTagParse(input, new HtmlFeedLink("RSS Feed.", "https://shkspr.mobi/blog/feed", FeedType.Rss));
         }
 
+        [TestMethod]
+        public void TestSingleQuotedAttributes()
+        {
+            string input = "<link rel='alternate' type='application/rss+xml' title='My Feed' href='https://example.com/feed/' />";
+            TestLinkTagParse(input, new HtmlFeedLink("My Feed", "https://example.com/feed/", FeedType.Rss));
+        }
+
+        [TestMethod]
+        public void TestLinkTagWithLineBreaks()
+        {
+            string input = "<link\n  rel=\"alternate\"\n  type=\"application/rss+xml\"\n  title=\"My Feed\"\n  href=\"https://example.com/feed/\" />";
+            TestLinkTagParse(input, new HtmlFeedLink("My Feed", "https://example.com/feed/", FeedType.Rss));
+        }
+
         private static void TestLinkTagParse(string input, HtmlFeedLink expectedResult)
         {
             var res = Helpers.GetFeedLinkFromLinkTag(input);
@@ -150,6 +164,25 @@
                 new HtmlFeedLink("Atom Feed.", "https://shkspr.mobi/blog/feed/atom", FeedType.Atom),
                 new HtmlFeedLink("RSS Feed.", "https://shkspr.mobi/blog/feed", FeedType.Rss),
             });
+        }
+
+        [TestMethod]
+        public void ParseFeedUrlsFromHtmlSingleQuotedRel()
+        {
+            string html = "<html><head><link rel='alternate' type='application/rss+xml' title='My Feed' href='https://example.com/feed/'></head></html>";
+            var links = Helpers.ParseFeedUrlsFromHtml(html).ToList();
+            Assert.AreEqual(1, links.Count);
+            Assert.AreEqual("My Feed", links[0].Title);
+            Assert.AreEqual("https://example.com/feed/", links[0].Url);
+            Assert.AreEqual(FeedType.Rss, links[0].FeedType);
+        }
+
+        [TestMethod]
+        public void ParseFeedUrlsFromHtmlRelAlternatePartialWordNotMatched()
+        {
+            string html = "<html><head><link rel=alternate2 type=\"application/rss+xml\" title=\"Feed\" href=\"https://example.com/feed/\"></head></html>";
+            var links = Helpers.ParseFeedUrlsFromHtml(html).ToList();
+            Assert.AreEqual(0, links.Count);
         }
 
         private static void TestHtmlLinkParse(string path, IEnumerable<HtmlFeedLink> expectedLinks)
